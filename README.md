@@ -1,3 +1,3 @@
-# sternik-weekend
+# Pokemon klaser
 
-## Aplikacja skoleniowa grupa weekendowa
+## Sternik dzienne - aplikacja klaser
