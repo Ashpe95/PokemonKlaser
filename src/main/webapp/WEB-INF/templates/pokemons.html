@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout ::site-head">
+<title>Klaser pokemonow</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all" href="../../css/klaser.css" th:href="@{/css/klaser.css}" />
+</head>
+
+<body>
+    <logo th:replace="layout :: site-logo"/>
+
+<header th:replace="layout :: site-header" />
+
+  
+  <div class="listaPokemonow" th:unless="${#lists.isEmpty(pokemonsAll)}">
+    <table>
+      <thead>
+        <tr>
+          <th style="color: #ffcb05;" th:text="#{klaser.numerKatalogowy}">Numer kat.</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.nazwa}">Nazwa pokemona</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.typ.energia}">Zywiol</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.typ.karty}">Typ karty</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.typ.rzadkosc}">Rzadkosc</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.hp}">HP</th>          
+          <th style="color: #ffcb05;" th:text="#{klaser.atak}">Koszt 1 ataku</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.opis}">Opis 1 ataku</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.atak2}">Koszt 2 ataku</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.opis2}">Opis 2 ataku</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.wycofanie}">Koszt wycofania</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.odpornosc}">Odpornosc</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.slabosc}">Slabosc</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.cenaNabycia}">Cena nabycia</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.dataNabycia}">Data Nabycia</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.status1}">Status</th>
+          <th style="color: #ffcb05;" th:text="#{klaser.operacje}">Operacje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="pokemon : ${pokemonsAll}">
+          <form action="#" th:action="@{/pokemons}" th:object="${pokemon}" method="post">
+          <td th:text="${pokemon.catalogNumber}">Numer kat.</td>
+          <td th:text="${pokemon.name}">Nazwa pokemona</td>
+          <td th:text="#{${'klaser.typ.energia.' + pokemon.energyType}}">Zywiol</td>
+          <td th:text="#{${'klaser.typ.karty.' + pokemon.cardType}}">Typ Karty</td>
+          <td th:text="#{${'klaser.typ.rzadkosc.' + pokemon.rarity}}">Rzadkosc</td>
+          <td th:text="${pokemon.HP}">HP</td>
+          <td th:text="${pokemon.attackCost}">Koszt 1 Ataku</td>
+          <td th:text="${pokemon.attackDescription}">Opis 1 Ataku</td>
+          <td th:text="${pokemon.attackCost2}">Koszt 2 Ataku</td>
+          <td th:text="${pokemon.attackDescription2}">Opis 2 Ataku</td>
+          <td th:text="${pokemon.retreatCost}">Koszt Wycofania</td>
+          <td th:text="${pokemon.resistance}">Odpornosc</td>
+          <td th:text="${pokemon.weakness}">Slabosc</td>
+          <td th:text="${pokemon.purchasePrice}">Cena Nabycia</td>
+          <td th:text="${#dates.format(pokemon.purchaseDate, 'yyyy-MM-dd')}">Data Nabycia</td>
+          <td th:text="#{${'pokemon.status.' + pokemon.status}}">Status</td>
+          <td>
+            <button type="submit" style="width: 60px; background-color: #2c72b8; color: #f2d768; border-color: #2c72b8;" name="remove" th:value="${pokemon.catalogNumber}" 
+            th:text="#{klaser.remove}">Delete</button>
+            
+            <a href="pokemon.html" th:href="@{|/pokemons/${pokemon.catalogNumber}|}" >
+            <button type="button" style="width:60px; background-color: #2c72b8; color: #f2d768; border-color: #2c72b8;" th:text="#{klaser.edit}">Edit</button></a>              
+          </td>
+          </form>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    <footer th:replace="layout :: site-footer" />
+</body>
+</html>
